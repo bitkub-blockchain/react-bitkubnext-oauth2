@@ -39,6 +39,9 @@ export const exchangeAuthorizationCode = async (clientId: string, redirectURI: s
         return {
             access_token,
             refresh_token,
+        } as {
+            access_token: string
+            refresh_token?: string
         }
     } catch (error) {
         return error
@@ -65,6 +68,9 @@ export const exchangeRefreshToken = async (clientId: string, refreshToken: strin
         return {
             access_token,
             refresh_token,
+        } as {
+            access_token: string
+            refresh_token?: string
         }
     } catch (error) {
         return error

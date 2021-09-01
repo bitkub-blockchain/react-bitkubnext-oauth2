@@ -11,12 +11,18 @@ export interface ReactBitkubNextOauth2Props {
     mode: 'new_tab' | 'popup' | 'redirect'
     /** oauth2 state callback */
     state?: string
+    /** on click button */
+    onClick?: () => {}
 }
 
 export const ReactBitkubNextOauth2: React.FC<ReactBitkubNextOauth2Props> = (props) => {
-    const { children, clientId, redirectURI, mode, state } = props
+    const { children, clientId, redirectURI, mode, state, onClick } = props
 
     const handlerOnConnect = () => {
+        if (typeof onClick === 'function') {
+            onClick()
+        }
+
         const oauth2URL = getOAuth2AuthorizeURL(clientId, redirectURI, state)
 
         switch (mode) {
