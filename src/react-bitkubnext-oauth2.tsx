@@ -12,7 +12,7 @@ export interface ReactBitkubNextOauth2Props {
     /** oauth2 state callback */
     state?: string
     /** on click button */
-    onClick?: () => {}
+    onClick?: () => void
 }
 
 export const ReactBitkubNextOauth2: React.FC<ReactBitkubNextOauth2Props> = (props) => {
