@@ -17,7 +17,7 @@
 	],
 	"scripts": {
 		"build": "tsc",
-		"preversion": "tsc",
+		"preversion": "rm -rf ./dist && tsc",
 		"postversion": "git push && git push --tags"
 	},
 	"devDependencies": {
