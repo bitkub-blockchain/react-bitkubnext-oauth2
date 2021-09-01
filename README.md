@@ -40,3 +40,12 @@ const handlerExtendAccessToken = async () => {
     alert(refresh_token)
 }
 ```
+==================
+## ReactBitkubNextOauth2 Props
+| Name          | Required      | Type          | Default value |
+| :------------ | :----------:  | :----------:  | :----------:  |
+| clientId      | true          | String        |               |
+| redirectURI   | true          | String        |               |
+| mode          | false         | 'new_tab' , 'popup' , 'redirect' |       "new_tab"        |
+| state         | false         | String        |               |
+| onClick       | false         | () => void    |               |
