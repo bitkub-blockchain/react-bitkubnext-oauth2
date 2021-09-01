@@ -1,7 +1,9 @@
-export const getOAuth2AuthorizeURL = (domain: string, clientId: string, redirectURI: string, state?: string) => {
+const BITKUB_ACCOUNT_URL = 'https://accounts.bitkubnext.com'
+
+export const getOAuth2AuthorizeURL = (clientId: string, redirectURI: string, state?: string) => {
     const _redirectURI = encodeURIComponent(redirectURI)
     let oauth2URL =
-        domain +
+        BITKUB_ACCOUNT_URL +
         `/oauth2/authorize?` +
         `response_type=${'code'}` +
         '&' +
@@ -16,8 +18,9 @@ export const getOAuth2AuthorizeURL = (domain: string, clientId: string, redirect
     return oauth2URL
 }
 
-export const sendAuthorizationCode = async (url: string, clientId: string, redirectURI: string, code: string) => {
+export const exchangeAuthorizationCode = async (clientId: string, redirectURI: string, code: string) => {
     try {
+        const url = BITKUB_ACCOUNT_URL + '/oauth2/access_token'
         const request = await fetch(url, {
             headers: {
                 Authorization: `Basic ${Buffer.from(`${clientId}:`).toString('base64')}`,
@@ -42,8 +45,9 @@ export const sendAuthorizationCode = async (url: string, clientId: string, redir
     }
 }
 
-export const sendExtendAccessToken = async (url: string, clientId: string, refreshToken: string) => {
+export const exchangeRefreshToken = async (clientId: string, refreshToken: string) => {
     try {
+        const url = BITKUB_ACCOUNT_URL + '/oauth2/access_token'
         const request = await fetch(url, {
             headers: {
                 Authorization: `Basic ${Buffer.from(`${clientId}:`).toString('base64')}`,
