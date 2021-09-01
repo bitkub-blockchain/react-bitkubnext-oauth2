@@ -1,6 +1,6 @@
 {
 	"name": "@makejack4/react-bitkubnext-oauth2",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"author": {
 		"name": "Rattanapol Piakaew",
 		"email": "makejack4@gmail.com"
@@ -17,6 +17,7 @@
 	],
 	"scripts": {
 		"build": "tsc",
+		"preversion": "tsc",
 		"postversion": "git push && git push --tags"
 	},
 	"devDependencies": {
