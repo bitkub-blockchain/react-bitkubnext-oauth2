@@ -21,11 +21,6 @@ export const getOAuth2AuthorizeURL = (clientId: string, redirectURI: string, sta
 export const exchangeAuthorizationCode = async (clientId: string, redirectURI: string, code: string) => {
     try {
         const url = BITKUB_ACCOUNT_URL + '/oauth2/access_token'
-        const formData = new FormData()
-        formData.append('grant_type', 'authorization_code')
-        formData.append('client_id', clientId)
-        formData.append('redirect_uri', redirectURI)
-        formData.append('code', code)
 
         const request = await fetch(url, {
             method: 'POST',
@@ -33,7 +28,12 @@ export const exchangeAuthorizationCode = async (clientId: string, redirectURI: s
                 Authorization: `Basic ${Buffer.from(`${clientId}:`).toString('base64')}`,
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
             },
-            body: formData,
+            body: new URLSearchParams({
+                grant_type: 'authorization_code',
+                client_id: clientId,
+                redirect_uri: redirectURI,
+                code: code,
+            }),
         })
 
         const { access_token, refresh_token } = await request.json()
@@ -53,18 +53,17 @@ export const exchangeAuthorizationCode = async (clientId: string, redirectURI: s
 export const exchangeRefreshToken = async (clientId: string, refreshToken: string) => {
     try {
         const url = BITKUB_ACCOUNT_URL + '/oauth2/access_token'
-        const formData = new FormData()
-        formData.append('grant_type', 'refresh_token')
-        formData.append('client_id', clientId)
-        formData.append('refresh_token', refreshToken)
-
         const request = await fetch(url, {
             method: 'POST',
             headers: {
                 Authorization: `Basic ${Buffer.from(`${clientId}:`).toString('base64')}`,
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
             },
-            body: formData,
+            body: new URLSearchParams({
+                grant_type: 'refresh_token',
+                client_id: clientId,
+                refresh_token: refreshToken,
+            }),
         })
 
         const { access_token, refresh_token } = await request.json()
