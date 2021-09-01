@@ -1,0 +1,16 @@
+{
+	"editor.tabSize": 4,
+	"editor.detectIndentation": false,
+	"git.ignoreLimitWarning": true,
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.tslint": true
+	},
+	"files.eol": "\n",
+	"[json]": {
+		"editor.tabSize": 2
+	},
+	"[yaml]": {
+		"editor.tabSize": 2
+    }
+}
