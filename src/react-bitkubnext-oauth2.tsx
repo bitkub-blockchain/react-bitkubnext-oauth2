@@ -7,17 +7,37 @@ export interface ReactBitkubNextOauth2Props {
     clientId: string
     /** oauth2 redirect URI */
     redirectURI: string
+    /** mode */
+    mode: 'new_tab' | 'popup' | 'redirect'
     /** oauth2 state callback */
     state?: string
 }
 
 export const ReactBitkubNextOauth2: React.FC<ReactBitkubNextOauth2Props> = (props) => {
-    const { children, clientId, redirectURI, state } = props
+    const { children, clientId, redirectURI, mode, state } = props
 
     const handlerOnConnect = () => {
         const oauth2URL = getOAuth2AuthorizeURL(clientId, redirectURI, state)
-        window.location.href = oauth2URL
+
+        switch (mode) {
+            case 'popup':
+                window.open(oauth2URL, '_blank', 'width=600,height=600')
+                break
+            case 'new_tab':
+                window.open(oauth2URL, '_blank')
+                break
+            case 'redirect':
+                window.location.href = oauth2URL
+                break
+            default:
+                window.open(oauth2URL, '_blank')
+                break
+        }
     }
 
     return <>{React.cloneElement(children as any, { onClick: handlerOnConnect })}</>
+}
+
+ReactBitkubNextOauth2.defaultProps = {
+    mode: 'new_tab',
 }
