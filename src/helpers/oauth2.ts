@@ -20,8 +20,10 @@ export const getOAuth2AuthorizeURL = (clientId: string, redirectURI: string, sta
 
 export const exchangeAuthorizationCode = async (clientId: string, redirectURI: string, code: string) => {
     try {
+        alert('test')
         const url = BITKUB_ACCOUNT_URL + '/oauth2/access_token'
         const request = await fetch(url, {
+            method: 'POST',
             headers: {
                 Authorization: `Basic ${Buffer.from(`${clientId}:`).toString('base64')}`,
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -52,6 +54,7 @@ export const exchangeRefreshToken = async (clientId: string, refreshToken: strin
     try {
         const url = BITKUB_ACCOUNT_URL + '/oauth2/access_token'
         const request = await fetch(url, {
+            method: 'POST',
             headers: {
                 Authorization: `Basic ${Buffer.from(`${clientId}:`).toString('base64')}`,
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
