@@ -1,6 +1,6 @@
 {
-	"name": "@makejack4/react-bitkubnext-oauth2",
-	"version": "0.0.12",
+	"name": "@bitkub-blockchain/react-bitkubnext-oauth2",
+	"version": "0.0.14",
 	"readmeFilename": "README.md",
 	"main": "dist/index.js",
 	"typings": "dist/index.d.ts",
