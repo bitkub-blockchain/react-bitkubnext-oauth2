@@ -3,6 +3,8 @@ import React from 'react'
 import { getOAuth2AuthorizeURL } from './helpers/oauth2'
 
 export interface ReactBitkubNextOauth2Props {
+    /** oauth2 url */
+    url?: string
     /** oauth2 client ID */
     clientId: string
     /** oauth2 redirect URI */
@@ -16,14 +18,14 @@ export interface ReactBitkubNextOauth2Props {
 }
 
 export const ReactBitkubNextOauth2: React.FC<ReactBitkubNextOauth2Props> = (props) => {
-    const { children, clientId, redirectURI, mode, state, onClick } = props
+    const { children, url, clientId, redirectURI, mode, state, onClick } = props
 
     const handlerOnConnect = () => {
         if (typeof onClick === 'function') {
             onClick()
         }
 
-        const oauth2URL = getOAuth2AuthorizeURL(clientId, redirectURI, state)
+        const oauth2URL = getOAuth2AuthorizeURL(url, clientId, redirectURI, state)
 
         switch (mode) {
             case 'popup':

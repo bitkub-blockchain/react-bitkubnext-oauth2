@@ -1,15 +1,8 @@
 const BITKUB_ACCOUNT_URL = 'https://accounts.bitkubnext.com'
 
-export const getOAuth2AuthorizeURL = (clientId: string, redirectURI: string, state?: string) => {
+export const getOAuth2AuthorizeURL = (url = BITKUB_ACCOUNT_URL, clientId: string, redirectURI: string, state?: string) => {
     const _redirectURI = encodeURIComponent(redirectURI)
-    let oauth2URL =
-        BITKUB_ACCOUNT_URL +
-        `/oauth2/authorize?` +
-        `response_type=${'code'}` +
-        '&' +
-        `client_id=${clientId}` +
-        '&' +
-        `redirect_uri=${_redirectURI}`
+    let oauth2URL = `${url}/oauth2/authorize?response_type='code'&client_id=${clientId}&redirect_uri=${_redirectURI}`
 
     if (state) {
         oauth2URL += `&state=${state}`
@@ -18,11 +11,15 @@ export const getOAuth2AuthorizeURL = (clientId: string, redirectURI: string, sta
     return oauth2URL
 }
 
-export const exchangeAuthorizationCode = async (clientId: string, redirectURI: string, code: string) => {
+export const exchangeAuthorizationCode = async (
+    url = BITKUB_ACCOUNT_URL,
+    clientId: string,
+    redirectURI: string,
+    code: string,
+) => {
     try {
-        const url = BITKUB_ACCOUNT_URL + '/oauth2/access_token'
-
-        const request = await fetch(url, {
+        const _url = `${url}/oauth2/access_token`
+        const request = await fetch(_url, {
             method: 'POST',
             headers: {
                 Authorization: `Basic ${Buffer.from(`${clientId}:`).toString('base64')}`,
@@ -50,10 +47,10 @@ export const exchangeAuthorizationCode = async (clientId: string, redirectURI: s
     }
 }
 
-export const exchangeRefreshToken = async (clientId: string, refreshToken: string) => {
+export const exchangeRefreshToken = async (url = BITKUB_ACCOUNT_URL, clientId: string, refreshToken: string) => {
     try {
-        const url = BITKUB_ACCOUNT_URL + '/oauth2/access_token'
-        const request = await fetch(url, {
+        const _url = `${url}/oauth2/access_token`
+        const request = await fetch(_url, {
             method: 'POST',
             headers: {
                 Authorization: `Basic ${Buffer.from(`${clientId}:`).toString('base64')}`,
